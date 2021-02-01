@@ -1,60 +1,62 @@
 <template>
-    <div class="main-lectures-div" v-if="isSubject">
-        <div class="main-lecture">
-            <div class="header-div">
-                <h2 class="header-normal">Lectures</h2>
-                <p><strong>Note</strong>: Lecture slides are added automatically as lectures are completed.</p>
+    <div class="content">
+        <div class="main-lectures-div" v-if="isSubject">
+            <div class="main-lecture">
+                <div class="header-div">
+                    <h2 class="header-normal">Lectures</h2>
+                    <p><strong>Note</strong>: Lecture slides are added automatically as lectures are completed.</p>
+                </div>
+                <table class="t-table">
+                    <colgroup>
+                        <col width="10%" />
+                        <col width="60%" />
+                        <col width="10%" />
+                        <col width="20%" />
+                    </colgroup>
+                    <thead>
+                        <tr class="table-header">
+                            <td>Date</td>
+                            <td>Topic</td>
+                            <td>Slides</td>
+                            <td>Reading/HW</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <component :is="currentLecture()"></component>
+                    </tbody>
+                </table>
             </div>
-            <table class="t-table">
-                <colgroup>
-                    <col width="10%" />
-                    <col width="60%" />
-                    <col width="10%" />
-                    <col width="20%" />
-                </colgroup>
-                <thead>
-                    <tr class="table-header">
-                        <td>Date</td>
-                        <td>Topic</td>
-                        <td>Slides</td>
-                        <td>Reading/HW</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <component :is="currentLecture()"></component>
-                </tbody>
-            </table>
-        </div>
-        <div class="main-lecture">
-            <div class="header-div">
-                <h2 class="header-normal">Tests/Exams</h2>
-                <p><strong>Note</strong>: Always check the room!.</p>
+            <div class="main-lecture">
+                <div class="header-div">
+                    <h2 class="header-normal">Tests/Exams</h2>
+                    <p><strong>Note</strong>: Always check the room!.</p>
+                </div>
+        
+                <table class="t-table">
+                    <colgroup>
+                        <col width="10%" />
+                        <col width="60%" />
+                        <col width="10%" />
+                        <col width="20%" />
+                    </colgroup>
+                    <thead>
+                        <tr class="table-header">
+                            <td>Date</td>
+                            <td>Topic</td>
+                            <td>Room</td>
+                            <td>Time</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <component :is="currentExams()"></component>
+                    </tbody>
+                </table>
             </div>
-    
-            <table class="t-table">
-                <colgroup>
-                    <col width="10%" />
-                    <col width="60%" />
-                    <col width="10%" />
-                    <col width="20%" />
-                </colgroup>
-                <thead>
-                    <tr class="table-header">
-                        <td>Date</td>
-                        <td>Topic</td>
-                        <td>Room</td>
-                        <td>Time</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <component :is="currentExams()"></component>
-                </tbody>
-            </table>
         </div>
-    </div>
-    <div class="errorDiv" v-else>
-        <h1>No Active Subject :(
-        </h1>
+        <div class="errorDiv" v-else>
+            <h1>No Active Subject :(
+            </h1>
+        </div>
     </div>
 
 </template>

@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import LusiadaLab from '../views/LusiadaLab.vue'
+import Home from '../views/_Home.vue'
+import LusiadaLab from '../views/_LusiadaLab.vue'
 import Overview from '../views/Overview.vue'
 import Lectures from '../views/Lectures.vue'
 import Assignments from '../views/Assignments.vue'

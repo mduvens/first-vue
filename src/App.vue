@@ -8,11 +8,14 @@
             <div class="nav-header">{{currentSmallTitle}}</div>
             <div class="nav-sub-header big">{{currentTitle}}</div>
           </span>
+              <!-- <button class="btn-big" @click="getNumbers()">Call API</button>
+              <button class="btn-big" @click="javascriptPDF()">DownloadFile</button>
+              <a target="_blank" href="/javascriptPDF.pdf"><button class="btn-big" >See File</button></a> -->
          <!-- <span class="big">{{currentTitle}}</span>
          <span class="small course-number">{{currentSmallTitle}}</span> -->
         </div>
         <div class="small" id="nav-button-div" v-if="isSubject">
-          <span id="nav-button"><i class="fas fa-bars"></i></span>
+          <span class="nav-button"><i class="fas fa-bars"></i></span>
         </div>
         <div class="hide" id="nav-links" v-if="isSubject">
             <router-link to="/Overview">HOME</router-link>
@@ -20,16 +23,17 @@
             <router-link to="/Assignments">ASSIGNMENTS</router-link>
             <router-link to="/Projects" v-if="getActive == 'CRG'">PROJECTS</router-link>
         </div>
-          <div class="hide" id="nav-links" v-else>
+          <!-- <div class="hide" id="nav-links" v-else>
 
-          </div>
+          </div> -->
 
 
       </div>
       <div id="mainContent">
-        <div class="content">
+
+       
           <router-view/>
-        </div>
+     
       </div>
     </div>
     <div id="footer">
@@ -38,8 +42,9 @@
   </div>
 </template>
 <script>
-import { updateMenu ,goTopPage } from '@/assets/test.js'
+import { updateMenu ,goTopPage,closeSidebar } from '@/assets/test.js'
 import {mapGetters, mapState} from 'vuex'
+import TestAPI  from '@/services/api'
 
 export default {
     computed: {
@@ -54,6 +59,14 @@ export default {
         'getActive'
       ])
     },
+    methods: {
+        getNumbers(){
+         TestAPI.getNumbers().then(res => console.log(res.data))
+        },
+        javascriptPDF(){ 
+          TestAPI.javascriptPDF() 
+        }
+    },
     beforeCreate(){
       if(localStorage.hasOwnProperty('activeComponent'))
         this.$store.dispatch('setActive',localStorage.activeComponent)
@@ -64,15 +77,20 @@ export default {
     },
 
     mounted(){
-      updateMenu()
+      updateMenu('nav-button-div','nav-links')
     },
     updated(){
-      updateMenu()
+      updateMenu('nav-button-div','nav-links')
+      closeSidebar()
       goTopPage()
     }
 }
+
 </script>
 <style >
+.noscroll{
+  position: fixed;
+}
 :root{
   --box-shadow: 0px 0px 8px rgb(230, 230, 230);
   --secondary-bg: rgba(0, 0, 0, 0.89);
@@ -101,6 +119,14 @@ a:hover{
   font-size: 1.01em;
  
 }
+.btn-big{
+  margin: 1em;
+  width: 100px;
+  height: 50px;
+}
+.flex-container{
+  display: flex;
+}
 .errorDiv{
   margin-top: 5%;
 
@@ -112,7 +138,6 @@ a:hover{
   height: 100%;
   width: 100vw;
   margin: auto;
-  overflow: hidden;
 
 }
 #main{
@@ -124,12 +149,18 @@ a:hover{
   grid-template-areas:
   'head'
   'foot';
+  overflow-x: auto;
 
+}
+#main.no-overflow{
+  overflow: hidden;
 }
 #mainContent{
   grid-area: mainContent;
   background: rgb(253, 253, 253);
+  line-height: 1.5em;
   /* height: 100%; */
+
 }
 .content{
   width: 65%;
@@ -181,9 +212,11 @@ a:hover{
 #nav-links{
   display: flex;
 }
-#nav-button{
+.nav-button{
   display: flex;
   align-items: center;
+  margin: 0 1em 0 0 ;
+
 }
 #nav-button-div{
   font-size: 1.2em;
@@ -214,10 +247,7 @@ a:hover{
   font-variant-caps: all-small-caps;
 
 }
-#nav-button{
-  /* font-size: 2em; */
-  margin: 0 1em 0 0 ;
-}
+
 #nav-links a:hover{
   box-shadow: var(--box-shadow)
 
@@ -258,8 +288,9 @@ a:hover{
 
   }
   .nav-header{
-      font-weight: bold;
-      font-size: larger;
+      /* font-weight: bold; */
+      /* font-size: larger; */
+      font-size: 1.1em;
   }
 
   .navTitle{
@@ -278,10 +309,8 @@ a:hover{
     --nav-height: 14vh;
   }
 }
-@media screen and (min-width: 1024px) {
-  #mainContent{
-    line-height: 2vh;
-  }
+@media screen and (min-width: 700px) {
+ 
   .main-image{
     width: 95%;
     /* margin: auto; */

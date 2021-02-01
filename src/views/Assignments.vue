@@ -1,25 +1,27 @@
 <template>
-<div class="main-lecture" v-if="isSubject">
-    <div class="header-div">
-        <h1 class="header-normal">Assignments</h1>
-        <p><strong>Note</strong>: Assignments are added automatically as lectures are completed.</p>
+<div class="content">
+    <div class="main-lecture" v-if="isSubject">
+        <div class="header-div">
+            <h1 class="header-normal">Assignments</h1>
+            <p><strong>Note</strong>: Assignments are added automatically as lectures are completed.</p>
+        </div>
+    
+    <table class="t-table">
+            <tr class="t-head">
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+            <component :is="current()"></component>
+    
+    </table>
+    
     </div>
-
-<table class="t-table">
-        <tr class="t-head">
-            <th>Description</th>
-            <th>Date</th>
-        </tr>
-        <component :is="current()"></component>
-
-</table>
-
+     <div class="errorDiv" v-else>
+          <h1>
+            No Active Subject :(
+          </h1>
+        </div>
 </div>
- <div class="errorDiv" v-else>
-      <h1>
-        No Active Subject :(
-      </h1>
-    </div>
 </template>
 
 <script>

@@ -1,9 +1,11 @@
 <template>
-    <div class="main-projects-div" v-if="isSubject">
-       <component :is="current()"></component>       
-    </div>
-    <div class="errorDiv" v-else>
-        No Active Subject :(
+    <div class="content">
+        <div class="main-projects-div" v-if="isSubject">
+           <component :is="current()"></component>       
+        </div>
+        <div class="errorDiv" v-else>
+            No Active Subject :(
+        </div>
     </div>
 </template>
 
